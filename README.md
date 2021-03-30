@@ -1,6 +1,6 @@
 # Employee System Demo
 
-Realistic data generated for the demo is included in Data.csv
+Realistic data generated for the demo is included in Data.csv, must be placed under mysql/data/employee_db/
 
 
 MYSQL Queries to enter manually:
