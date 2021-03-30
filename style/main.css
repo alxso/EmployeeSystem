@@ -1,0 +1,95 @@
+@charset "utf-8";
+body {
+    background-color: lightcyan;
+    margin-left: 10%;
+    margin-top: 13%;
+}
+
+input[type=submit] {
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 290486px;
+    font-size: 0.6em;
+    letter-spacing: 0.2em;
+}
+
+input[type=submit]:hover {
+    transition: none 400ms ease-out;
+    transition-property: color, background;
+    background-color: #1687a7;
+    color: white;
+}
+
+th {
+    background-color: white !important;
+}
+
+table .selected {
+    background-color: red;
+}
+
+table {
+    width: 1000px;
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: 50px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    line-height: 50px;
+}
+
+td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+table tr:not(:first-child):hover td {
+    background-color: #70d5f1;
+    border-top: royalblue 5px solid;
+    border-bottom: royalblue 5px solid;
+}
+
+input,
+label {
+    margin: 7px;
+}
+
+h1 {
+    color: darkblue;
+}
+
+nav {
+    font-size: 30px;
+    position: fixed;
+    background-color: #70d5f1;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 35px;
+}
+
+nav ul li.menu {
+    float: left;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+nav ul li.menu a {
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 290486px;
+    font-size: 0.6em;
+    letter-spacing: 0.2em;
+}
+
+nav ul li.menu a:hover {
+    transition: none 400ms ease-out;
+    transition-property: color, background;
+    background-color: #1687a7;
+    color: white;
+}
