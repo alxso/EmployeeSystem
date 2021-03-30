@@ -1,17 +1,9 @@
 # Employee System Demo
 
-Realistic data generated for the demo:
-Data.csv
+Realistic data generated for the demo is included in Data.csv
 
 
-MYSQL:
-
-MYSQL DB in localhost
-		username:root
-		password:null
-		port:3305
-
-		Queries:
+MYSQL Queries to enter manually:
 
 			CREATE database employee_db;
 
