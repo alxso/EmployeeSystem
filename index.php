@@ -34,12 +34,15 @@
 		<label for="phone">Phone:</label><br>
 		<input type="tel" id="phone" name="phone" placeholder="e.g. 372-530-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
 		<label for="hiredate">Hire Date: *</label><br>
-		<input type="date" id="hiredate" name="hiredate" required><br><br>
+		<input type="date" id="hiredate" name="hiredate" required><br>
+		<label for="active">Active:</label><br>
+		<input type="checkbox" id="active" name="active" value="YES"><br>
 		<input type="submit" name="submitbutton" value="Submit">
 	</form><br>
 
 	<!--MYSQL Connection and Update-->
 	<?php
+	error_reporting(0);
 	/*
 		MYSQL DB in localhost
 		username:root
@@ -59,7 +62,8 @@
 			lname VARCHAR(30) NOT NULL,
 			email VARCHAR(50) NOT NULL,
 			phone VARCHAR(50),
-			hiredate VARCHAR(50) NOT NULL
+			hiredate VARCHAR(50) NOT NULL,
+			active VARCHAR(3) DEFAULT 'NO'
 			)AUTO_INCREMENT=1000;
 
 			LOAD DATA INFILE 'data.csv' 
@@ -77,12 +81,21 @@
 			die("ERROR: Could not connect. " . mysqli_connect_error());
 		}
 
+		if ($active == "") {
+			$active = "NO";
+		}
+
 		$fname = mysqli_real_escape_string($link, $_REQUEST['fname']);
 		$mname = mysqli_real_escape_string($link, $_REQUEST['mname']);
 		$lname = mysqli_real_escape_string($link, $_REQUEST['lname']);
 		$email = mysqli_real_escape_string($link, $_REQUEST['email']);
 		$phone = mysqli_real_escape_string($link, $_REQUEST['phone']);
 		$hiredate = mysqli_real_escape_string($link, $_REQUEST['hiredate']);
+		$active = mysqli_real_escape_string($link, $_REQUEST['active']);
+
+		if ($active == "") {
+			$active = "NO";
+		}
 
 		if ((strtotime($hiredate) ? true : false) and (explode("/", $hiredate)[0] <= 2099 ? true : false)
 			and (preg_match("/^[- '\p{L}]+$/u", $fname) == 1 ? true : false)
@@ -90,7 +103,7 @@
 			and (preg_match("/^[- '\p{L}]+$/u", $lname) == 1 ? true : false)
 		) {
 
-			$sql = "INSERT INTO persons (fname, mname, lname, email, phone, hiredate) VALUES ('$fname', '$mname','$lname','$email','$phone','$hiredate')";
+			$sql = "INSERT INTO persons (fname, mname, lname, email, phone, hiredate, active) VALUES ('$fname', '$mname','$lname','$email','$phone','$hiredate','$active')";
 
 			if (mysqli_query($link, $sql)) {
 				echo "Records added successfully.";

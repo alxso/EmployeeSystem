@@ -21,11 +21,12 @@ function getIDtoEdit() {
     email = document.getElementById("email").value;
     phone = document.getElementById("phone").value;
     hiredate = document.getElementById("hiredate").value;
+    active = document.getElementById("active").value;
     $.ajax({
         url: "employees.php",
         type: "post",
         dataType: 'json',
-        data: { fetchid: fetchid, "callFunc2": "1", "fname": fname, "mname": mname, "lname": lname, "email": email, "phone": phone, "hiredate": hiredate },
+        data: { fetchid: fetchid, "callFunc2": "1", "fname": fname, "mname": mname, "lname": lname, "email": email, "phone": phone, "hiredate": hiredate, "active": active },
         success: function(result) {
             console.log(result.abc);
         }

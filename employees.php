@@ -30,19 +30,23 @@
 
     <form action="employees.php" method="POST">
         <br><label for="filter">Filter: *</label><br>
-        <input type="text" id="filter" name="filter" placeholder="Name, Email, Date"><br>
-        <input type="submit" id="filterbutton" name="filterbutton" value="Filter"></input>
-        <input type="submit" onclick="getIDtoRemove();" name="removebutton" value="Remove"></input><br>
-        <input type="text" id="fname" name="fname" placeholder="First Name"><br>
+        <input type="text" id="filter" name="filter" placeholder="Name, Email, Date">
+        <input type="submit" id="filterbutton" name="filterbutton" value="Filter"></input><br><br>
+        <input type="text" id="fname" name="fname" placeholder="First Name *">
         <input type="text" id="mname" name="mname" placeholder="Middle Name"><br>
-        <input type="text" id="lname" name="lname" placeholder="Last Name"><br>
-        <input type="email" id="email" name="email" placeholder="Email: issoys@ttu.ee"><br>
-        <input type="phone" id="phone" name="phone" placeholder="Number: 372-530-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
-        <input type="date" id="hiredate" name="hiredate" placeholder="Date: dd/mm/yyyy"><br>
+        <input type="text" id="lname" name="lname" placeholder="Last Name *">
+        <input type="email" id="email" name="email" placeholder="Email: issoys@ttu.ee *"><br>
+        <input type="phone" id="phone" name="phone" placeholder="Number: 372-530-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <input type="date" id="hiredate" name="hiredate">*<br>
+        <label for="active">Active:</label><br>
+        <input type="checkbox" id="active" name="active" value="YES">
+        <br>* Mandatory to fill.</br>
         <input type="submit" onclick="getIDtoEdit();" name="editbutton" value="Edit"></input>
+        <input type="submit" onclick="getIDtoRemove();" name="removebutton" value="Remove"></input><br>
     </form><br>
 
     <?php
+    error_reporting(0);
     $link = mysqli_connect("localhost", "root", "", "employee_db", 3305);
     if (isset($_POST["filterbutton"])) {
 
@@ -64,6 +68,7 @@
             <th> <font face="Arial">Email</font> </th> 
             <th> <font face="Arial">Phone</font> </th>
             <th> <font face="Arial">Date Hired</font> </th> 
+            <th> <font face="Arial">Active</font> </th>
         </tr>';
 
         if ($result = $link->query($sqlfilter)) {
@@ -75,6 +80,7 @@
                 $field4 = $row["email"];
                 $field5 = $row["phone"];
                 $field6 = $row["hiredate"];
+                $field7 = $row["active"];
 
                 echo "<tr> 
                   <td>$field0</td> 
@@ -84,11 +90,11 @@
                   <td>$field4</td> 
                   <td>$field5</td>
                   <td>$field6</td>  
+                  <td>$field7</td>  
               </tr>";
             }
             $result->free();
         }
-
     } else {
 
         if ($link === false) {
@@ -106,7 +112,8 @@
             <th> <font face="Arial">Last Name</font> </th> 
             <th> <font face="Arial">Email</font> </th> 
             <th> <font face="Arial">Phone</font> </th>
-            <th> <font face="Arial">Date Hired</font> </th> 
+            <th> <font face="Arial">Date Hired</font> </th>
+            <th> <font face="Arial">Active</font> </th> 
         </tr>';
 
         if ($result = $link->query($sqldefault)) {
@@ -118,6 +125,7 @@
                 $field4 = $row["email"];
                 $field5 = $row["phone"];
                 $field6 = $row["hiredate"];
+                $field7 = $row["active"];
 
                 echo "<tr> 
                   <td>$field0</td> 
@@ -126,12 +134,12 @@
                   <td>$field3</td> 
                   <td>$field4</td> 
                   <td>$field5</td>
-                  <td>$field6</td>  
+                  <td>$field6</td>
+                  <td>$field7</td>
               </tr>";
             }
             $result->free();
         }
-
     }
 
 
@@ -147,25 +155,30 @@
     }
 
 
-    function table_edit($fetchid,$fname, $mname, $lname, $email, $phone, $hiredate)
+    function table_edit($fetchid, $fname, $mname, $lname, $email, $phone, $hiredate, $active)
     {
         global $link;
-        
-        $sqledit = mysqli_query($link,"UPDATE persons SET fname='$fname', mname='$mname', lname='$lname', email='$email', phone='$phone', hiredate='$hiredate' WHERE id=$fetchid;");
+
+        if ($active == "") {
+            $active = "NO";
+        }
+
+
+        $sqledit = mysqli_query($link, "UPDATE persons SET fname='$fname', mname='$mname', lname='$lname', email='$email', phone='$phone', hiredate='$hiredate', active='$active' WHERE id=$fetchid;");
         if (mysqli_query($link, $sqledit)) {
             echo "Record edited successfully.";
         } else {
             echo "ERROR: Could not able to execute $sqledit. " . mysqli_error($link);
         }
-        }
-    
+    }
+
 
     if (isset($_POST['callFunc1'])) {
         echo table_remove($_POST['fetchid']);
     }
 
-   if (isset($_POST['callFunc2'])) {
-        echo table_edit($_POST['fetchid'],$_POST['fname'],$_POST['mname'],$_POST['lname'],$_POST['email'],$_POST['phone'],$_POST['hiredate']);
+    if (isset($_POST['callFunc2'])) {
+        echo table_edit($_POST['fetchid'], $_POST['fname'], $_POST['mname'], $_POST['lname'], $_POST['email'], $_POST['phone'], $_POST['hiredate'], $_POST['active']);
     }
     ?>
 
