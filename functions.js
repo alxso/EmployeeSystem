@@ -21,12 +21,18 @@ function getIDtoEdit() {
     email = document.getElementById("email").value;
     phone = document.getElementById("phone").value;
     hiredate = document.getElementById("hiredate").value;
-    active = document.getElementById("active").value;
+    if (document.getElementById("active2").checked == false) {
+        active2 = "NO";
+    } else {
+        active2 = "YES";
+    }
+
+
     $.ajax({
         url: "employees.php",
         type: "post",
         dataType: 'json',
-        data: { fetchid: fetchid, "callFunc2": "1", "fname": fname, "mname": mname, "lname": lname, "email": email, "phone": phone, "hiredate": hiredate, "active": active },
+        data: { fetchid: fetchid, "callFunc2": "1", "fname": fname, "mname": mname, "lname": lname, "email": email, "phone": phone, "hiredate": hiredate, "active2": active2 },
         success: function(result) {
             console.log(result.abc);
         }

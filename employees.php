@@ -38,8 +38,8 @@
         <input type="email" id="email" name="email" placeholder="Email: issoys@ttu.ee *"><br>
         <input type="phone" id="phone" name="phone" placeholder="Number: 372-530-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <input type="date" id="hiredate" name="hiredate">*<br>
-        <label for="active">Active:</label><br>
-        <input type="checkbox" id="active" name="active" value="YES">
+        <label for="active2">Active:</label><br>
+        <input type="checkbox" id="active2" name="active2" value="YES">
         <br>* Mandatory to fill.</br>
         <input type="submit" onclick="getIDtoEdit();" name="editbutton" value="Edit"></input>
         <input type="submit" onclick="getIDtoRemove();" name="removebutton" value="Remove"></input><br>
@@ -155,16 +155,16 @@
     }
 
 
-    function table_edit($fetchid, $fname, $mname, $lname, $email, $phone, $hiredate, $active)
+    function table_edit($fetchid, $fname, $mname, $lname, $email, $phone, $hiredate, $active2)
     {
         global $link;
 
-        if ($active == "") {
-            $active = "NO";
+        if ($active2 == "") {
+            $active2 = "NO";
         }
 
+        $sqledit = mysqli_query($link, "UPDATE persons SET fname='$fname', mname='$mname', lname='$lname', email='$email', phone='$phone', hiredate='$hiredate', active='$active2' WHERE id=$fetchid;");
 
-        $sqledit = mysqli_query($link, "UPDATE persons SET fname='$fname', mname='$mname', lname='$lname', email='$email', phone='$phone', hiredate='$hiredate', active='$active' WHERE id=$fetchid;");
         if (mysqli_query($link, $sqledit)) {
             echo "Record edited successfully.";
         } else {
@@ -178,7 +178,7 @@
     }
 
     if (isset($_POST['callFunc2'])) {
-        echo table_edit($_POST['fetchid'], $_POST['fname'], $_POST['mname'], $_POST['lname'], $_POST['email'], $_POST['phone'], $_POST['hiredate'], $_POST['active']);
+        echo table_edit($_POST['fetchid'], $_POST['fname'], $_POST['mname'], $_POST['lname'], $_POST['email'], $_POST['phone'], $_POST['hiredate'], $_POST['active2']);
     }
     ?>
 
