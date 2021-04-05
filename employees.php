@@ -41,9 +41,9 @@
         <label for="active2">Active:</label><br>
         <input type="checkbox" id="active2" name="active2" value="YES">
         <br>* Mandatory to fill.</br>
-        <input type="submit" onclick="getIDtoEdit();" name="editbutton" value="Edit"></input>
-        <input type="submit" onclick="getIDtoRemove();" name="removebutton" value="Remove"></input><br>
     </form><br>
+    <input type="submit" onclick="getIDtoEdit();" name="editbutton" value="Edit"></input>
+    <input type="submit" onclick="getIDtoRemove();" name="removebutton" value="Remove"></input><br>
 
     <?php
     error_reporting(0);
