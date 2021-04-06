@@ -11,6 +11,7 @@ function getIDtoRemove() {
             console.log(result.abc);
         }
     });
+    setTimeout(() => { location.reload(); }, 1000);
 }
 
 function getIDtoEdit() {
@@ -37,6 +38,8 @@ function getIDtoEdit() {
             console.log(result.abc);
         }
     });
+    setTimeout(() => { location.reload(); }, 1000);
+
 }
 
 $(document).ready(function() {
